@@ -1,1 +1,47 @@
-<p>TODO Restaurant Category</p>
+<p>Manage Restaurant Categories</p>
+<section>
+  <form #categoryForm="ngForm" (ngSubmit)="createCategory(categoryForm)">
+    <input
+      type="text"
+      name="name"
+      ngModel
+      placeholder="Category Name"
+      required
+      #name="ngModel"
+    />
+    <div *ngIf="name.invalid && name.touched">Category name is required</div>
+
+    <button type="submit" [disabled]="categoryForm.invalid">
+      Add Category
+    </button>
+  </form>
+</section>
+
+<section>
+  <table border="1" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories">
+        <td>{{ category.category_uuid }}</td>
+        <td>{{ category.name }}</td>
+        <td>
+          <button (click)="viewCategoryDetails(category.category_uuid)">
+            View Details
+          </button>
+          <button (click)="updateCategory(category.category_uuid, category)">
+            Update
+          </button>
+          <button (click)="deleteCategory(category.category_uuid)">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

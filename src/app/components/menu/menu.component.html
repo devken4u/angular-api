@@ -1,1 +1,109 @@
-<p>TODO menu</p>
+<p>Manage Menu</p>
+<section>
+  <form #menuForm="ngForm" (ngSubmit)="createMenu(menuForm)">
+    <input
+      type="text"
+      name="name"
+      ngModel
+      placeholder="Menu Name"
+      required
+      #name="ngModel"
+    />
+    <div *ngIf="name.invalid && name.touched">Menu name is required</div>
+
+    <input
+      type="number"
+      name="price"
+      ngModel
+      placeholder="Price"
+      required
+      #price="ngModel"
+    />
+    <div *ngIf="price.invalid && price.touched">Price is required</div>
+
+    <input
+      type="text"
+      name="description"
+      ngModel
+      placeholder="Description"
+      required
+      #description="ngModel"
+    />
+    <div *ngIf="description.invalid && description.touched">
+      Description is required
+    </div>
+
+    <label>
+      Availability:
+      <input
+        type="checkbox"
+        name="availability"
+        ngModel
+        [checked]="false"
+        #availability="ngModel"
+      />
+      Available
+    </label>
+
+    <div *ngIf="availability.invalid && availability.touched">
+      Availability is required
+    </div>
+
+    <input
+      type="number"
+      name="category_id"
+      ngModel
+      placeholder="Category ID"
+      required
+      #categoryId="ngModel"
+    />
+    <div *ngIf="categoryId.invalid && categoryId.touched">
+      Category ID is required
+    </div>
+
+    <input
+      type="number"
+      name="restaurant_id"
+      ngModel
+      placeholder="Restaurant ID"
+      required
+      #restaurantId="ngModel"
+    />
+    <div *ngIf="restaurantId.invalid && restaurantId.touched">
+      Restaurant ID is required
+    </div>
+
+    <button type="submit" [disabled]="menuForm.invalid">Create Menu</button>
+  </form>
+</section>
+
+<section>
+  <table border="1" class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Availability</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let menu of menus">
+        <td>{{ menu.menu_uuid }}</td>
+        <td>{{ menu.name }}</td>
+        <td>{{ menu.price }}</td>
+        <td>{{ menu.description }}</td>
+        <td>{{ menu.availability ? "Yes" : "No" }}</td>
+        <td>
+          <button (click)="viewMenuDetails(menu.menu_uuid)">
+            View Details
+          </button>
+          <button (click)="updateMenu(menu.menu_uuid, menu)">Update</button>
+          <button (click)="deleteMenu(menu.menu_uuid)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
